@@ -115,6 +115,16 @@ h1 {
   list-style: none;
   margin: 0.5rem 0;
   padding: 0;
+  border: 1px solid #ffab04;
+}
+
+.cart li {
+  padding: 0.25rem 0.5rem ;
+  border-bottom: 1px solid #ffab04;
+}
+
+.cart li:last-child {
+  border-bottom: none;
 }
 
 .modal-actions {
