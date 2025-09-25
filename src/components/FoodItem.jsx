@@ -1,13 +1,23 @@
+import { useContext } from "react";
+import { currencyFormatter } from "../util/CurrencyFormat";
+import Button from "./UI/Button";
+import { CartContext } from "../store/CartContext";
 
-export default function FoodItem({ image, title, description, price }) {
+export default function FoodItem({ foodItem }) {
+  const { addItem } = useContext(CartContext);
+  const currencyPrice = currencyFormatter.format(foodItem.price);
+
   return <li className='meal-item'>
-    <div className='article'>
-      <img src={`http://localhost:3000/${image}`} alt='item' />
-      <h3>{title}</h3>
-      <p className='meal-item-description'>{description}</p>
-      <div className='meal-item-actions'>
-        <button className='meal-item-price'>{price}</button>
+    <article>
+      <img src={`http://localhost:3000/${foodItem.image}`} alt={title} />
+      <div>
+        <h3>{foodItem.name}</h3>
+        <p className='meal-item-price'>{currencyPrice}</p>
+        <p className='meal-item-description'>{foodItem.description}</p>
       </div>
-    </div>
+      <div className='meal-item-actions'>
+        <Button textOnly={false} onClick={() => addItem(foodItem)}>Add to Cart</Button>
+      </div>
+    </article>
   </li>
 }

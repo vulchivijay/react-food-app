@@ -22,10 +22,7 @@ export default function FoodItems() {
       {loadedFoodItems && loadedFoodItems.map((item, index) => (
         <FoodItem
           key={item.id}
-          image={item.image}
-          title={item.title}
-          description={item.description}
-          price={item.price}
+          foodItem={item}
         />
       ))}
     </ul>
