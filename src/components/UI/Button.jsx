@@ -1,6 +1,6 @@
 export default function Button({ children, textOnly, ...props }) {
   let cssClasses = textOnly ? 'text-button' : 'button';
-  cssClasses += ' ' + props.className;
+  cssClasses += props?.className === undefined ? '' : props?.className;
 
   return (
     <button

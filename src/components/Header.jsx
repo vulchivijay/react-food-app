@@ -6,8 +6,12 @@ import CartModal from './CartModal';
 export default function Header() {
   const cartModal = useRef();
   const checkOutModal = useRef()
-  const { items } = useContext(CartContext);
-  const cartQuantity = items.length;
+  const cartCtx = useContext(CartContext);
+
+  const totalCartItems = cartCtx.items.reduce((totalNumberOfItems, item) => {
+    return totalCartItems + item.quantity;
+  })
+
   function handleOpenCartClick() {
     cartModal.current.open();
   }
@@ -15,7 +19,7 @@ export default function Header() {
     checkOutModal.current.open();
   }
   let cartModalActions = <Button>Close</Button>;
-  if (cartQuantity > 0) {
+  if (totalCartItems > 0) {
     cartModalActions = (
       <>
         <Button textOnly={true}>Close</Button>
@@ -28,7 +32,7 @@ export default function Header() {
     checkOutModalActions = (
       <>
         <Button textOnly={true}>Cancel</Button>
-        <Button textOnly={false}>Submit Order</Button>
+        <Button type="submit" textOnly={false}>Submit Order</Button>
       </>
     )
   }
@@ -52,7 +56,7 @@ export default function Header() {
           <h1>Vijay's Restaurent</h1>
         </div>
         <Button textOnly={true} onClick={handleOpenCartClick}>
-          Cart ({cartQuantity})
+          Cart ({totalCartItems})
         </Button>
       </header>
     </>

@@ -1,7 +1,7 @@
 import { useContext } from "react";;
 import { CartContext } from "./../store/CartContext";
 import Button from "./UI/Button";
-export default function Cart() {
+export default function Cart({ actions }) {
   const { items, quantity } = useContext(CartContext);
   const totalPrice = items.reduce(
     (acc, item) => acc + item.price * item.quantity,
@@ -9,7 +9,7 @@ export default function Cart() {
   );
   const formattedTotalPrice = `$${totalPrice.toFixed(2)}`;
   return (
-    <div>
+    <form method="dialog">
       {items.length === 0 && <p>No items in cart!</p>}
       {items.length > 0 && (
         <ul>
@@ -37,6 +37,9 @@ export default function Cart() {
         </ul>
       )}
       <p className="cart-total">Cart Total: <strong>{formattedTotalPrice}</strong></p>
-    </div>
+      <div className="modal-actions">
+        {actions}
+      </div>
+    </form>
   );
 }

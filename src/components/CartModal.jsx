@@ -14,10 +14,7 @@ const CartModal = forwardRef(function Modal({ title, actions, type }, ref) {
   return createPortal(
     <dialog className="modal cart" ref={dialog}>
       <h2>{title}</h2>
-      {type === 'Cart' ? <Cart /> : <CheckOutForm />}
-      <form method="dialog" className="modal-actions">
-        {actions}
-      </form>
+      {type === 'Cart' ? <Cart actions={actions} /> : <CheckOutForm actions={actions} />}
     </dialog>,
     (type === 'Cart') ? document.getElementById('cartModal') : document.getElementById('checkOutModal')
   );
