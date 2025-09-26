@@ -1,16 +1,20 @@
 import { useContext } from "react";;
 import { CartContext } from "./../store/CartContext";
+import { UserProgressContext } from "./../store/UserProgressContext";
 import Button from "./UI/Button";
 export default function Cart({ actions }) {
   const { items, quantity } = useContext(CartContext);
-  const totalPrice = items.reduce(
+  const userProgressCtx = useContext(UserProgressContext);
+
+  const cartTotal = items.reduce(
     (acc, item) => acc + item.price * item.quantity,
     0
   );
-  const formattedTotalPrice = `$${totalPrice.toFixed(2)}`;
+
+  const formattedTotalPrice = `$${cartTotal.toFixed(2)}`;
   return (
     <form method="dialog">
-      {items.length === 0 && <p>No items in cart!</p>}
+      {items.length === 0 && <p className="center orange"><b>No items in cart!</b></p>}
       {items.length > 0 && (
         <ul>
           {items.map(item => {

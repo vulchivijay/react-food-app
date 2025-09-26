@@ -65,7 +65,6 @@ export default function CartContextProvider({ children }) {
     })
   }
   function handleItemQuantity(itemId, price) {
-    console.log(itemId, price);
     cartDispatch({
       type: 'UPDATE_QUANTITY',
       payload: {

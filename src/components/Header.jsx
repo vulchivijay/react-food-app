@@ -7,10 +7,7 @@ export default function Header() {
   const cartModal = useRef();
   const checkOutModal = useRef()
   const cartCtx = useContext(CartContext);
-
-  const totalCartItems = cartCtx.items.reduce((totalNumberOfItems, item) => {
-    return totalCartItems + item.quantity;
-  })
+  const totalCartItems = cartCtx.items.reduce((total, item) => total + item.quantity, 0);
 
   function handleOpenCartClick() {
     cartModal.current.open();
@@ -18,7 +15,7 @@ export default function Header() {
   function handleOpenCheckOutClick() {
     checkOutModal.current.open();
   }
-  let cartModalActions = <Button>Close</Button>;
+  let cartModalActions = <Button textOnly={false}>Close</Button>;
   if (totalCartItems > 0) {
     cartModalActions = (
       <>
@@ -27,8 +24,8 @@ export default function Header() {
       </>
     );
   }
-  let checkOutModalActions = <Button>Close</Button>
-  if (cartQuantity > 0) {
+  let checkOutModalActions = <Button textOnly={false}>Close</Button>
+  if (totalCartItems > 0) {
     checkOutModalActions = (
       <>
         <Button textOnly={true}>Cancel</Button>

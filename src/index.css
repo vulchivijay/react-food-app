@@ -264,6 +264,10 @@ h1 {
   text-align: center;
 }
 
+.orange {
+  color: #ffab04;
+}
+
 .error {
   width: 90%;
   max-width: 25rem;
@@ -279,7 +283,7 @@ h1 {
 }
 
 .error p {
-  margin: 0;
+  margin: 0.5rem 0 0;
 }
 
 @keyframes fade-slide-up {
