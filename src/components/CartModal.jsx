@@ -2,6 +2,7 @@ import { forwardRef, useImperativeHandle, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import Cart from './Cart';
 import CheckOutForm from './CheckOutForm';
+
 const CartModal = forwardRef(function Modal({ title, actions, type }, ref) {
   const dialog = useRef();
   useImperativeHandle(ref, () => {
@@ -11,6 +12,7 @@ const CartModal = forwardRef(function Modal({ title, actions, type }, ref) {
       },
     };
   });
+
   return createPortal(
     <dialog className="modal cart" ref={dialog}>
       <h2>{title}</h2>
@@ -19,4 +21,5 @@ const CartModal = forwardRef(function Modal({ title, actions, type }, ref) {
     (type === 'Cart') ? document.getElementById('cartModal') : document.getElementById('checkOutModal')
   );
 });
+
 export default CartModal;
