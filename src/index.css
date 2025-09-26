@@ -116,15 +116,12 @@ h1 {
   margin: 0.5rem 0;
   padding: 0;
   border: 1px solid #ffab04;
+  border-bottom: none;
 }
 
 .cart li {
-  padding: 0.25rem 0.5rem ;
+  padding: 0.1rem 0.5rem 0.5rem;
   border-bottom: 1px solid #ffab04;
-}
-
-.cart li:last-child {
-  border-bottom: none;
 }
 
 .modal-actions {
@@ -149,6 +146,10 @@ h1 {
   font-size: 1.15rem;
   font-weight: bold;
   color: #46443c;
+}
+
+.cart-total strong {
+  margin-left: 0.5rem;
 }
 
 .cart-item {

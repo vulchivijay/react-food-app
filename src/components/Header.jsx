@@ -4,27 +4,47 @@ import Logo from './../assets/logo.jpg';
 import Button from './UI/Button';
 import CartModal from './CartModal';
 export default function Header() {
-  const modal = useRef();
+  const cartModal = useRef();
+  const checkOutModal = useRef()
   const { items } = useContext(CartContext);
   const cartQuantity = items.length;
   function handleOpenCartClick() {
-    modal.current.open();
+    cartModal.current.open();
   }
-  let modalActions = <Button>Close</Button>;
+  function handleOpenCheckOutClick() {
+    checkOutModal.current.open();
+  }
+  let cartModalActions = <Button>Close</Button>;
   if (cartQuantity > 0) {
-    modalActions = (
+    cartModalActions = (
       <>
-        <Button>Close</Button>
-        <Button>Checkout</Button>
+        <Button textOnly={true}>Close</Button>
+        <Button textOnly={false} onClick={handleOpenCheckOutClick}>Checkout</Button>
       </>
     );
+  }
+  let checkOutModalActions = <Button>Close</Button>
+  if (cartQuantity > 0) {
+    checkOutModalActions = (
+      <>
+        <Button textOnly={true}>Cancel</Button>
+        <Button textOnly={false}>Submit Order</Button>
+      </>
+    )
   }
   return (
     <>
       <CartModal
-        ref={modal}
+        ref={checkOutModal}
+        title='Checkout'
+        actions={checkOutModalActions}
+        type="Checkout"
+      />
+      <CartModal
+        ref={cartModal}
         title='Your cart'
-        actions={modalActions}
+        actions={cartModalActions}
+        type="Cart"
       />
       <header id='main-header'>
         <div id='title'>

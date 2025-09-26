@@ -1,4 +1,6 @@
 import { createContext, useReducer } from "react";
+import { toast } from 'react-toastify';
+
 export const CartContext = createContext({
   items: [],
   addItem: (item) => { },
@@ -56,6 +58,7 @@ export default function CartContextProvider({ children }) {
     items: [],
   });
   function handleAddItem(item) {
+    toast("Add to Cart");
     cartDispatch({
       type: 'ADD_ITEM',
       payload: item,
