@@ -6,7 +6,9 @@ export const CartContext = createContext({
   addItem: (item) => { },
   quantity: (id) => { },
 });
+
 function cartReducer(state, action) {
+
   if (action.type === 'ADD_ITEM') {
     const updatedItems = [...state.items];
     const existingCartItemIndex = updatedItems.findIndex(
@@ -32,6 +34,7 @@ function cartReducer(state, action) {
       items: updatedItems,
     };
   }
+
   if (action.type === 'UPDATE_QUANTITY') {
     const updatedItems = [...state.items];
     const updatedItemIndex = updatedItems.findIndex(
@@ -50,6 +53,7 @@ function cartReducer(state, action) {
       items: updatedItems,
     };
   }
+
   return state;
 }
 
@@ -57,6 +61,7 @@ export default function CartContextProvider({ children }) {
   const [cartState, cartDispatch] = useReducer(cartReducer, {
     items: [],
   });
+
   function handleAddItem(item) {
     toast("Add to Cart");
     cartDispatch({
@@ -64,6 +69,7 @@ export default function CartContextProvider({ children }) {
       payload: item,
     })
   }
+
   function handleItemQuantity(itemId, price) {
     cartDispatch({
       type: 'UPDATE_QUANTITY',
@@ -73,11 +79,13 @@ export default function CartContextProvider({ children }) {
       }
     })
   }
+
   const ctxValue = {
     items: cartState.items,
     addItem: handleAddItem,
     quantity: handleItemQuantity
   }
+
   return <CartContext.Provider value={ctxValue}>
     {children}
   </CartContext.Provider>

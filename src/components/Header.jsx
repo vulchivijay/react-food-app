@@ -3,19 +3,17 @@ import { useRef, useContext } from 'react';
 import Logo from './../assets/logo.jpg';
 import Button from './UI/Button';
 import CartModal from './CartModal';
+
 export default function Header() {
   const cartModal = useRef();
-  const checkOutModal = useRef()
   const cartCtx = useContext(CartContext);
   const totalCartItems = cartCtx.items.reduce((total, item) => total + item.quantity, 0);
+  let cartModalActions = <Button textOnly={false}>Close</Button>;
 
   function handleOpenCartClick() {
     cartModal.current.open();
   }
-  function handleOpenCheckOutClick() {
-    checkOutModal.current.open();
-  }
-  let cartModalActions = <Button textOnly={false}>Close</Button>;
+  
   if (totalCartItems > 0) {
     cartModalActions = (
       <>
@@ -24,23 +22,9 @@ export default function Header() {
       </>
     );
   }
-  let checkOutModalActions = <Button textOnly={false}>Close</Button>
-  if (totalCartItems > 0) {
-    checkOutModalActions = (
-      <>
-        <Button textOnly={true}>Cancel</Button>
-        <Button type="submit" textOnly={false}>Submit Order</Button>
-      </>
-    )
-  }
+
   return (
     <>
-      <CartModal
-        ref={checkOutModal}
-        title='Checkout'
-        actions={checkOutModalActions}
-        type="Checkout"
-      />
       <CartModal
         ref={cartModal}
         title='Your cart'

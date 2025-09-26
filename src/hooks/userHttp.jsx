@@ -1,7 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 
 async function sendHttpRequest(url, options) {
-  // Simulated fetch function for demonstration purposes
   const response = await fetch(url, options);
   const data = await response.json();
   if (!response.ok) {
@@ -9,7 +8,6 @@ async function sendHttpRequest(url, options) {
       data.message || 'Network response was not ok'
     );
   }
-  console.log(data);
   return data;
 }
 
@@ -20,12 +18,10 @@ export default function useHttp(url, config, initialData) {
 
   const sendRequest = useCallback(
     async function sendRequest(data) {
-      console.log(data);
       setIsLoading(true);
       try {
         const responseData = await sendHttpRequest(url, {...config, body: data});
         setData(responseData);
-        console.log(responseData)
       }
       catch (err) {
         setError(err.message || 'Something went wrong!');

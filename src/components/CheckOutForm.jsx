@@ -1,18 +1,18 @@
 import { useContext } from "react";;
 import { CartContext } from "./../store/CartContext";
-import { UserProgressContext } from "./../store/UserProgressContext";
-import Input from "./UI/Input";
 import { toast } from "react-toastify";
+import Input from "./UI/Input";
 import useHttp from "../hooks/userHttp";
+
 const requestConfig = {
   method: "POST",
   headers: {
     'content-type': 'application/json'
   },
 };
+
 export default function CheckOutForm({ actions }) {
   const cartCtx = useContext(CartContext);
-  const userProgressCtx = useContext(UserProgressContext);
   const {
     isLoading: isSending,
     data,
@@ -23,6 +23,7 @@ export default function CheckOutForm({ actions }) {
     (acc, item) => acc + item.price * item.quantity,
     0
   );
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const formData = new FormData(event.target);
@@ -41,12 +42,15 @@ export default function CheckOutForm({ actions }) {
       totalAmount: cartTotal.toFixed(2),
     }));
   };
+
   if (isSending) {
     actions = <span>Sending order data...</span>
   }
+
   if (data && !error) {
     return toast("Your order was submitted successfully.");
   }
+
   return (
     <>
       <h3>Total Amount: ${cartTotal.toFixed(2)}</h3>

@@ -6,6 +6,7 @@ import Button from "./UI/Button";
 export default function FoodItem({ foodItem }) {
   const { addItem } = useContext(CartContext);
   const currencyPrice = currencyFormatter.format(foodItem.price);
+  
   return <li className='meal-item'>
     <article>
       <img src={`http://localhost:3000/${foodItem.image}`} alt={title} />
