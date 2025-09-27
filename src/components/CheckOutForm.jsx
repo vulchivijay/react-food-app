@@ -48,7 +48,7 @@ export default function CheckOutForm({ actions }) {
   }
 
   if (data && !error) {
-    return toast("Your order was submitted successfully.");
+    toast("Your order was submitted successfully.");
   }
 
   return (

@@ -6,31 +6,42 @@ import CartModal from './CartModal';
 
 export default function Header() {
   const cartModal = useRef();
-  const [isCartOpen, setIsCartOpen] = useState(false)
+  const checkoutModal = useRef();
+  const orderCompleted = useRef();
   const cartCtx = useContext(CartContext);
   const totalCartItems = cartCtx.items.reduce((total, item) => total + item.quantity, 0);
-  let cartModalActions = <Button textOnly={false}>Close</Button>;
+  let cartModalActions, checkoutModalAction, successModalAction =
+  <Button textOnly={false} onClick={() => handleCloseClick(orderCompleted) }>Close</Button>;
 
   function handleOpenCartClick() {
-    setIsCartOpen(true);
     cartModal.current.open();
   }
 
-  function handleOpenCheckOutClick() {
-    setIsCartOpen(false);
-    // cartModal.current.open();
+  function handleCheckOutClick() {
+    handleCloseClick(cartModal);
+    checkoutModal.current.open();
+  }
+
+  function handleSubmitClick() {
+    handleCloseClick(checkoutModal);
+    orderCompleted.current.open();
+  }
+
+  function handleCloseClick(modalRef) {
+    modalRef.current.close();
   }
   
   if (totalCartItems > 0) {
-    cartModalActions = isCartOpen ? (
+    cartModalActions = (
       <>
-        <Button textOnly={true}>Close</Button>
-        <Button textOnly={false} onClick={handleOpenCheckOutClick}>Checkout</Button>
+        <Button textOnly={true} onClick={() => handleCloseClick(cartModal) }>Close</Button>
+        <Button textOnly={false} onClick={handleCheckOutClick}>Checkout</Button>
       </>
-    ) : (
+    );
+    checkoutModalAction = (
       <>
-        <Button textOnly={true}>Close</Button>
-        <Button textOnly={false}>Submit Order</Button>
+        <Button textOnly={true} onClick={() => handleCloseClick(checkoutModal) }>Close</Button>
+        <Button textOnly={false} onClick={handleSubmitClick}>Submit Order</Button>
       </>
     );
   }
@@ -39,9 +50,23 @@ export default function Header() {
     <>
       <CartModal
         ref={cartModal}
-        title={isCartOpen ? 'Your cart details:' : 'Checkout details:'}
+        title='Your cart details:'
         actions={cartModalActions}
-        type={isCartOpen ? 'Cart' : 'Checkout' }
+        type='Cart'
+        modalId="cartModal"
+      />
+      <CartModal
+        ref={checkoutModal}
+        title='Checkout details:'
+        actions={checkoutModalAction}
+        type='Checkout'
+        modalId="checkoutModal"
+      />
+      <CartModal ref={orderCompleted}
+        title="Your order successfully completed!"
+        actions={successModalAction}
+        type="Success"
+        modalId="successModal"
       />
       <header id='main-header'>
         <div id='title'>
